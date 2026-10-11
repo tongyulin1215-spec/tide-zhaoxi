@@ -1,0 +1,6 @@
+build.noindex/
+dist/
+*.xcodeproj/
+Generated/
+.DS_Store
+.build/

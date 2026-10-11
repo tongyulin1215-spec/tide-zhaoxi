@@ -1,0 +1,79 @@
+<meta charset="utf-8">
+<title>总结页中间栏</title>
+<style>
+  :root{--bg:#f5f5f7;--line:#e6e6e9;--fg:#1d1d1f;--sub:#8a8a8e}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;padding:28px 24px 60px}
+  h2{margin:0 0 6px;font-size:20px}
+  p.note{margin:0 0 18px;color:var(--sub);font-size:13px;max-width:72ch;line-height:1.6}
+  .opt{margin-bottom:30px}
+  .opt h3{margin:0 0 4px;font-size:15px}
+  .opt p{margin:0 0 10px;color:#555;font-size:13px;line-height:1.6;max-width:80ch}
+  .rec{display:inline-block;font-size:11px;background:#e6f4ec;color:#1b8a52;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+  .scroll{overflow-x:auto}
+  .win{display:flex;min-width:760px;height:300px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .side{width:130px;padding:14px 10px;font-size:13px;flex:none}
+  .side div{padding:6px 8px;border-radius:6px;margin-bottom:2px}
+  .list{width:210px;padding:12px 10px;font-size:13px;flex:none}
+  .list .btns{display:flex;gap:6px;margin-bottom:12px}
+  .list .btns span{font-size:12px;padding:3px 8px;border-radius:6px}
+  .list .h{font-size:11px;color:var(--sub);margin:6px 8px 4px}
+  .list .it{display:flex;padding:6px 8px;border-radius:6px}
+  .list .it span{margin-left:auto;color:var(--sub);font-size:12px}
+  .detail{flex:1;padding:18px 22px;background:#fff;min-width:0}
+  .detail b{font-size:16px}
+  .bar{height:6px;border-radius:3px;background:#ececee;margin:14px 0 16px;overflow:hidden}.bar i{display:block;width:40%;height:100%;background:#4aa36c}
+  .ln{font-size:13px;margin:6px 0;color:#333}
+  .memo{margin-top:14px;height:70px;border-radius:8px;background:#f4f4f5}
+</style>
+
+<h2>总结页：中间那栏怎么配色</h2>
+<p class="note">你说得对：侧栏和右边内容其实都接近白色，中间也变成一样就分不出三块了。下面是现在和两种改法，同一份示例内容。</p>
+
+<div class="opt">
+  <h3>现在</h3>
+  <p>中间是一块明显更深的灰，像一堵墙夹在侧栏和内容之间，三栏里它最抢眼，但它只是一个目录。</p>
+  <div class="scroll"><div class="win">
+    <div class="side" style="background:#f3f3f5"><div style="background:#e4e4e8">总结</div><div>首页</div><div>规划</div><div>记账</div></div>
+    <div class="list" style="background:#e3e3e6">
+      <div class="btns"><span style="background:#d6d6da">总结一下今天</span><span style="background:#d6d6da">＋ 新建</span></div>
+      <div class="h">每日总结</div>
+      <div class="it" style="background:#cfd9f3">今天 · 10月5日<span>40%</span></div>
+      <div class="it">昨天 · 10月4日<span>0%</span></div>
+      <div class="it">10月3日<span>0%</span></div>
+    </div>
+    <div class="detail"><b>今天 · 10月5日 周一</b><div class="bar"><i></i></div><div class="ln">已完成 2</div><div class="ln">未完成 3</div><div class="memo"></div></div>
+  </div></div>
+</div>
+
+<div class="opt">
+  <h3>A · 中间栏变白，用细线分隔，选中项用浅色块<span class="rec">推荐</span></h3>
+  <p>和 Mac 自带的「备忘录」「邮件」一样：侧栏是浅灰（导航），中间和右边都是白（内容），中间靠一条细线和选中项的浅蓝底区分。三块不再靠颜色硬分，而是靠「导航 / 目录 / 内容」的结构分，看起来更轻。</p>
+  <div class="scroll"><div class="win">
+    <div class="side" style="background:#f3f3f5;border-right:1px solid var(--line)"><div style="background:#e4e4e8">总结</div><div>首页</div><div>规划</div><div>记账</div></div>
+    <div class="list" style="background:#fff;border-right:1px solid var(--line)">
+      <div class="btns"><span style="background:#f0f0f2">总结一下今天</span><span style="background:#f0f0f2">＋ 新建</span></div>
+      <div class="h">每日总结</div>
+      <div class="it" style="background:#e8eefc">今天 · 10月5日<span>40%</span></div>
+      <div class="it">昨天 · 10月4日<span>0%</span></div>
+      <div class="it">10月3日<span>0%</span></div>
+    </div>
+    <div class="detail"><b>今天 · 10月5日 周一</b><div class="bar"><i></i></div><div class="ln">已完成 2</div><div class="ln">未完成 3</div><div class="memo"></div></div>
+  </div></div>
+</div>
+
+<div class="opt">
+  <h3>B · 保留三种颜色，但中间只比白色深一点点</h3>
+  <p>侧栏浅灰 → 中间极浅灰 → 内容白，三层由深到浅过渡，仍然一眼看出是三块，但中间不再是最重的那块。</p>
+  <div class="scroll"><div class="win">
+    <div class="side" style="background:#f0f0f2"><div style="background:#e2e2e6">总结</div><div>首页</div><div>规划</div><div>记账</div></div>
+    <div class="list" style="background:#f8f8f9;border-right:1px solid var(--line)">
+      <div class="btns"><span style="background:#ececef">总结一下今天</span><span style="background:#ececef">＋ 新建</span></div>
+      <div class="h">每日总结</div>
+      <div class="it" style="background:#e8eefc">今天 · 10月5日<span>40%</span></div>
+      <div class="it">昨天 · 10月4日<span>0%</span></div>
+      <div class="it">10月3日<span>0%</span></div>
+    </div>
+    <div class="detail"><b>今天 · 10月5日 周一</b><div class="bar"><i></i></div><div class="ln">已完成 2</div><div class="ln">未完成 3</div><div class="memo"></div></div>
+  </div></div>
+</div>

@@ -1,0 +1,225 @@
+name: Cre
+options:
+  bundleIdPrefix: com.lty
+  developmentLanguage: zh-Hans
+  deploymentTarget:
+    macOS: "14.0"
+  generateEmptyDirectories: true
+packages:
+  CreCore:
+    path: .
+settings:
+  base:
+    DEVELOPMENT_TEAM: XZLHB3F367
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.2"
+    CURRENT_PROJECT_VERSION: "2"
+    ENABLE_HARDENED_RUNTIME: NO
+targets:
+  Cre:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/Cre
+      - path: Sources/Shared
+    dependencies:
+      - package: CreCore
+      - target: CreWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lty.cre
+        PRODUCT_NAME: Tide
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: Generated/Cre-Info.plist
+      properties:
+        CFBundleDisplayName: Tide
+        CFBundleDevelopmentRegion: zh-Hans
+        LSHasLocalizedDisplayName: true
+        LSMinimumSystemVersion: "14.0"
+        NSHighResolutionCapable: true
+        CFBundleURLTypes:
+          - CFBundleURLName: com.lty.cre
+            CFBundleURLSchemes: [cre]
+        NSLocalNetworkUsageDescription: 与手机上的朝夕同步
+        NSBonjourServices: [_tide._tcp]
+    entitlements:
+      path: Generated/Cre.entitlements
+      properties:
+        com.apple.security.application-groups: [XZLHB3F367.cre]
+  TideDemo:
+    # The public edition: example data only, no widget, no sync, ad-hoc signed so it opens on any Mac.
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/Cre
+      - path: Sources/Shared
+    dependencies:
+      - package: CreCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lty.cre.demo
+        PRODUCT_NAME: TideDemo
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: PUBLIC_DEMO
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        DEVELOPMENT_TEAM: ""
+        ARCHS: "arm64 x86_64"
+        ONLY_ACTIVE_ARCH: NO
+        CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
+    info:
+      path: Generated/TideDemo-Info.plist
+      properties:
+        CFBundleDisplayName: 朝夕
+        CFBundleDevelopmentRegion: zh-Hans
+        LSHasLocalizedDisplayName: true
+        LSMinimumSystemVersion: "14.0"
+        NSHighResolutionCapable: true
+  CreWidget:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: Sources/CreWidget
+      - path: Sources/Cre/Assets.xcassets
+    dependencies:
+      - package: CreCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lty.cre.tide-widget
+        PRODUCT_NAME: TideWidget
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: Generated/CreWidget-Info.plist
+      properties:
+        CFBundleDisplayName: Tide
+        CFBundleDevelopmentRegion: zh-Hans
+        LSMinimumSystemVersion: "14.0"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: Generated/CreWidget.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.application-groups: [XZLHB3F367.cre]
+  TideMobile:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources/Mobile
+      - path: Sources/Shared
+      - path: Sources/MobileIntents
+      - path: Sources/Cre/Assets.xcassets
+    dependencies:
+      - package: CreCore
+      - target: TideShare
+      - target: TideMobileWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lty.cre.mobile
+        PRODUCT_NAME: Tide
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    info:
+      path: Generated/TideMobile-Info.plist
+      properties:
+        CFBundleDisplayName: Tide
+        CFBundleDevelopmentRegion: zh-Hans
+        LSHasLocalizedDisplayName: true
+        UILaunchScreen: {}
+        UIApplicationSupportsIndirectInputEvents: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        NSPhotoLibraryUsageDescription: 识别刚截的付款截图并记账
+        NSLocalNetworkUsageDescription: 与 Mac 上的朝夕同步
+        NSBonjourServices: [_tide._tcp]
+        CFBundleURLTypes:
+          - CFBundleURLName: com.lty.cre.mobile
+            CFBundleURLSchemes: [tide]
+        NSCameraUsageDescription: 拍付款凭证记账
+    entitlements:
+      path: Generated/TideMobile.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.lty.cre.mobile]
+  TideMobileWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources/CreWidget
+      - path: Sources/MobileWidget
+      - path: Sources/MobileIntents
+      - path: Sources/Cre/Assets.xcassets
+    dependencies:
+      - package: CreCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lty.cre.mobile.widget
+        PRODUCT_NAME: TideMobileWidget
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: Generated/TideMobileWidget-Info.plist
+      properties:
+        CFBundleDisplayName: 朝夕
+        CFBundleDevelopmentRegion: zh-Hans
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: Generated/TideMobileWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.lty.cre.mobile]
+  TideShare:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources/ShareExtension
+      - path: Sources/Shared/TextRecognition.swift
+      - path: Sources/Shared/LedgerShared.swift
+      - path: Sources/Shared/MonthCalendar.swift
+      - path: Sources/Shared/Theme.swift
+    dependencies:
+      - package: CreCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lty.cre.mobile.share
+        PRODUCT_NAME: TideShare
+        TARGETED_DEVICE_FAMILY: "1"
+    info:
+      path: Generated/TideShare-Info.plist
+      properties:
+        CFBundleDisplayName: 朝夕
+        CFBundleDevelopmentRegion: zh-Hans
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShareViewController
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsImageWithMaxCount: 20
+    entitlements:
+      path: Generated/TideShare.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.lty.cre.mobile]
+  TideMobileUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Tests/MobileUITests
+    dependencies:
+      - target: TideMobile
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lty.cre.mobile.uitests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  TideMobile:
+    build:
+      targets:
+        TideMobile: all
+        TideMobileUITests: [test]
+    test:
+      targets: [TideMobileUITests]

@@ -1,0 +1,110 @@
+<meta charset="utf-8">
+<title>日程待办放置</title>
+<style>
+  :root{--line:#ececee;--sub:#8a8a8e;--blue:#2f6fed;--ddl:#f08a24;--rep:#1fa463;--span:#8e5bd8}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f5f5f7;color:#1d1d1f;font:13px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;padding:28px 24px 60px}
+  h2{margin:0 0 6px;font-size:20px} h3{margin:30px 0 4px;font-size:15px}
+  p.note{margin:0 0 14px;color:var(--sub);font-size:13px;max-width:76ch;line-height:1.6}
+  .rec{font-size:11px;background:#e6f4ec;color:#1b8a52;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+  .scroll{overflow-x:auto}
+  .win{display:flex;flex-direction:column;min-width:860px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .top{display:flex;align-items:center;gap:10px;padding:12px 16px 6px;font-weight:600;font-size:15px}
+  .chips{display:flex;gap:6px;align-items:center;padding:4px 16px 8px;color:var(--sub);font-size:11.5px}
+  .chips span.c{background:#f0f0f2;color:#1d1d1f;border-radius:999px;padding:3px 10px;font-size:12.5px}
+  .body{display:flex;min-height:300px}
+  .grid{flex:1;position:relative;min-width:0}
+  .heads{display:grid;grid-template-columns:40px repeat(7,1fr);padding:4px 0;border-bottom:1px solid var(--line);font-size:11.5px;text-align:center}
+  .heads b{display:block;font-size:15px}
+  .heads .today{color:var(--blue)}
+  .rows{display:grid;grid-template-columns:40px repeat(7,1fr);position:relative}
+  .rows .t{font-size:10.5px;color:var(--sub);text-align:right;padding-right:6px;height:40px;border-bottom:1px solid #f4f4f6}
+  .rows .cell{border-left:1px solid #f1f1f3;border-bottom:1px solid #f4f4f6;height:40px}
+  .rows .cell.td{background:#f7f9ff}
+  .ev{position:absolute;border-radius:5px;padding:3px 6px;font-size:11px;font-weight:600;border-left:3px solid}
+  .ev small{display:block;font-weight:400}
+  .tray{width:200px;border-left:1px solid var(--line);padding:12px 12px;background:#fbfbfc;flex:none}
+  .tray .th{display:flex;align-items:center;gap:6px;font-weight:600;font-size:12.5px;margin-bottom:10px}
+  .tray .th .nav{margin-left:auto;color:var(--sub);font-weight:400;letter-spacing:6px}
+  .card{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 8px;margin-bottom:6px;font-size:12.5px}
+  .card .grip{color:#c7c7cc;font-size:10px;letter-spacing:-1px}
+  .card .bar{width:3px;height:16px;border-radius:2px}
+  .card .dur{margin-left:auto;color:var(--sub);font-size:11px}
+  .card.done{opacity:.55}
+  .card.placed .dur{color:var(--blue)}
+  .hint{font-size:11px;color:var(--sub);margin-top:8px;line-height:1.5}
+  .badge{display:inline-block;margin-top:3px;font-size:10.5px;color:var(--sub);background:#f0f0f2;border-radius:999px;padding:0 7px}
+  .pop{position:absolute;top:58px;left:calc(40px + (100% - 40px)/7*3 + 6px);width:190px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:8px;z-index:3}
+  .pop .card{margin-bottom:4px}
+  .cap{font-size:12.5px;color:#555;margin-top:8px;line-height:1.6;max-width:84ch}
+</style>
+
+<h2>日程：待办按钮放在哪</h2>
+<p class="note">同一周、同一份示例数据。今天是周四。</p>
+
+<h3>现在</h3>
+<p class="note">一排灰色胶囊夹在标题和日期之间：看不出能拖、待办多了要横向滚、没有时长，还得先点日期才能换天。</p>
+<div class="scroll"><div class="win">
+  <div class="top">2026年10月5日 – 11日</div>
+  <div class="chips">今天的待办 <span class="c">买香蕉</span><span class="c">交周报</span><span class="c">健身</span><span class="c">学习</span><span class="c">交季度报告</span><span class="c">续费域名</span></div>
+  <div class="body"><div class="grid">
+    <div class="heads"><span></span><span>周一<b>5</b></span><span>周二<b>6</b></span><span>周三<b>7</b></span><span class="today">周四<b>8</b></span><span>周五<b>9</b></span><span>周六<b>10</b></span><span>周日<b>11</b></span></div>
+    <div class="rows" id="r1"></div>
+  </div></div>
+</div></div>
+
+<h3>A · 右侧「待办」栏<span class="rec">推荐</span></h3>
+<p class="note">时间表右边一条窄栏，竖着列出这天的待办卡片：左边有拖动把手和类型颜色，右边写时长；已经排进日程的显示时间、颜色跟日程块一致。栏顶用 ‹ › 换天，不用再点表头，C6 的「选中」高亮也就不需要了。栏可以收起，收起后时间表恢复全宽。</p>
+<div class="scroll"><div class="win">
+  <div class="top">2026年10月5日 – 11日</div>
+  <div class="body">
+    <div class="grid">
+      <div class="heads"><span></span><span>周一<b>5</b></span><span>周二<b>6</b></span><span>周三<b>7</b></span><span class="today">周四<b>8</b></span><span>周五<b>9</b></span><span>周六<b>10</b></span><span>周日<b>11</b></span></div>
+      <div class="rows" id="r2"></div>
+    </div>
+    <div class="tray">
+      <div class="th">待办 · 10月8日 周四 <span class="nav">‹ ›</span></div>
+      <div class="card placed"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--rep)"></i>读书 1 小时<span class="dur">07:00</span></div>
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--ddl)"></i>买香蕉<span class="dur">1 小时</span></div>
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--blue)"></i>交周报<span class="dur">1 小时</span></div>
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--rep)"></i>健身<span class="dur">1 小时</span></div>
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--span)"></i>学习<span class="dur">1 小时</span></div>
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--rep)"></i>Apex练枪半小时<span class="dur">30 分</span></div>
+      <div class="hint">拖到左边时间表，或点卡片再点时段。</div>
+    </div>
+  </div>
+</div></div>
+<p class="cap">代价：时间表窄 200pt 左右（可收起）。好处：一眼看到这天还有哪些没排、各要多久；待办再多也是往下排，不会挤成一行。</p>
+
+<h3>B · 挂在每天的表头上</h3>
+<p class="note">每一天的日期下面显示「5 项」，点开弹出那天的待办卡片，从弹窗里拖进时间表。不占额外位置，每天的待办直接跟着自己那一列；但平时是收起的，要多点一下。</p>
+<div class="scroll"><div class="win">
+  <div class="top">2026年10月5日 – 11日</div>
+  <div class="body"><div class="grid">
+    <div class="heads"><span></span><span>周一<b>5</b><i class="badge">2 项</i></span><span>周二<b>6</b><i class="badge">3 项</i></span><span>周三<b>7</b><i class="badge">4 项</i></span><span class="today">周四<b>8</b><i class="badge" style="background:#e8eefc;color:var(--blue)">6 项</i></span><span>周五<b>9</b><i class="badge">2 项</i></span><span>周六<b>10</b></span><span>周日<b>11</b></span></div>
+    <div class="rows" id="r3"></div>
+    <div class="pop">
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--ddl)"></i>买香蕉<span class="dur">1 小时</span></div>
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--blue)"></i>交周报<span class="dur">1 小时</span></div>
+      <div class="card"><span class="grip">⋮⋮</span><i class="bar" style="background:var(--rep)"></i>健身<span class="dur">1 小时</span></div>
+    </div>
+  </div></div>
+</div></div>
+
+<script>
+// draw the same time grid + a few events in each mockup
+const hours=[7,8,9,10,11,12];
+for (const id of ["r1","r2","r3"]) {
+  const r=document.getElementById(id);
+  for (const h of hours){
+    r.insertAdjacentHTML("beforeend", `<div class="t">${String(h).padStart(2,"0")}:00</div>`);
+    for (let d=0; d<7; d++) r.insertAdjacentHTML("beforeend", `<div class="cell${d===3?" td":""}"></div>`);
+  }
+  const col=(d)=>`calc(40px + (100% - 40px) / 7 * ${d} + 2px)`, w="calc((100% - 40px) / 7 - 4px)";
+  const ev=(d,top,hgt,c,txt,past)=>r.insertAdjacentHTML("beforeend",
+    `<div class="ev" style="left:${col(d)};width:${w};top:${top}px;height:${hgt}px;border-color:${c};color:${c};background:${c}${past?"14":"2e"};opacity:${past?.6:1}">${txt}</div>`);
+  for (let d=0; d<7; d++) ev(d,2,36,"#1fa463","读书 1 小时<small>07:00 – 08:00</small>", d<3);
+  ev(3,122,56,"#2f6fed","组会<small>10:00 – 11:30</small>",false);
+  ev(2,82,36,"#1fa463","健身<small>09:00 – 10:00</small>",true);
+}
+</script>

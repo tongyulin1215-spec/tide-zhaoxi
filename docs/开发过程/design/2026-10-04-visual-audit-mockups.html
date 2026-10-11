@@ -1,0 +1,159 @@
+<meta charset="utf-8">
+<h2>视觉评审：现在 vs 建议</h2>
+<p class="subtitle">每组左边是现在，右边是建议。圆圈里的数字对应评审意见编号，可以挑着要。内容是示例。</p>
+
+<style>
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:10px 0 30px}
+  .lab{font-size:12px;color:#888;margin-bottom:6px}
+  .win{--day:#2f6fed;--ddl:#f08a24;--rep:#1fa463;--span:#8e5bd8;background:#fff;border:1px solid #dcdce0;border-radius:12px;overflow:hidden;font-family:-apple-system,"PingFang SC",sans-serif;font-size:12.5px;color:#1d1d1f;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .bar{height:26px;background:#f6f6f7;display:flex;align-items:center;gap:6px;padding:0 10px;border-bottom:1px solid #ececef}
+  .dot{width:10px;height:10px;border-radius:50%}.r{background:#ff5f57}.y{background:#febc2e}.g{background:#28c840}
+  .tool{height:34px;border-bottom:1px solid #ececef;display:flex;align-items:center;padding-left:14px;font-weight:600;color:#333}
+  .body{display:flex;min-height:330px}
+  .side{width:92px;background:#f6f6f7;border-right:1px solid #ececef;padding:10px 6px;font-size:12px}
+  .side div{padding:5px 8px;border-radius:6px;color:#444}.side .on{background:#e3e3e8;color:#111;font-weight:600}
+  .main{flex:1;min-width:0;padding:14px 16px;display:flex;flex-direction:column;gap:7px}
+  .in{background:#f3f3f5;color:#999;border-radius:8px;padding:7px 10px}
+  .hd{display:flex;align-items:baseline;gap:8px}.hd b{font-size:15px}.hd .pg{color:#8a8a8e}
+  .row{display:flex;align-items:center;gap:7px;padding:6px 0 6px 10px;border-bottom:1px solid #f0f0f2;position:relative}
+  .row::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:4px;border-radius:2px;background:var(--c)}
+  .ck{width:12px;height:12px;border:2px solid var(--c);border-radius:50%;flex:none}
+  .done .ck{background:var(--c)}.done .tx{opacity:.4}.done::before{opacity:.4}
+  .tx{white-space:nowrap}
+  .grow{flex:1}
+  .t{font-size:10px;padding:1px 6px;border-radius:8px;white-space:nowrap}
+  .p0{background:#e5484d;color:#fff;font-weight:700;border-radius:3px;padding:0 4px;font-size:9px}
+  .p1{background:#ffe2c6;color:#a35400;font-weight:700;border-radius:3px;padding:0 4px;font-size:9px}
+  .day{--c:var(--day)}.ddl{--c:var(--ddl)}.rep{--c:var(--rep)}.span{--c:var(--span)}
+  .pie{width:12px;height:12px;border-radius:50%;flex:none;background:conic-gradient(var(--span) 0 43%,#eadff9 43% 100%)}
+  .sec{font-size:10.5px;color:#888;font-weight:600;margin-top:4px}
+  .sec2{font-size:12px;color:#555;font-weight:600;margin-top:10px}
+  /* current tags: colorful */
+  .c-ddl{background:#fff1e3;color:#c46a12}.c-od{background:#ffe3e3;color:#d43c3c}.c-span{background:#f1e8fd;color:#7a45c9}.c-g{background:#efeff2;color:#777}.c-tag{background:#e0f6f6;color:#1b9a9a}
+  /* proposed tags: quiet */
+  .q{background:#f3f3f5;color:#8a8a8e}.q-warn{background:#fdf2e9;color:#b9631a}.q-red{color:#c94a4a;background:none;padding:0}
+  .hover{background:#f6f7f9;border-radius:6px}
+  .cap{font-size:12.5px;color:#555;margin-top:8px;line-height:1.6}
+  .n{display:inline-flex;width:17px;height:17px;border-radius:50%;background:#1d1d1f;color:#fff;font-size:10px;align-items:center;justify-content:center;margin-right:3px}
+  .narrow{max-width:300px}
+  .seg{display:inline-flex;border-radius:7px;overflow:hidden;font-size:11px}
+  .seg span{padding:3px 12px}
+  .seg-now span{background:#eee;color:#333}.seg-now .on{background:#2f6fed;color:#fff}
+  .seg-new{background:#ececef;padding:2px}.seg-new span{border-radius:5px;color:#555}.seg-new .on{background:#fff;color:#111;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .lrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f0f0f2}
+  .ic{width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11px}
+  .empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#8a8a8e;padding:30px 0}
+  .empty .big{width:46px;height:46px;border-radius:12px;background:#f1f3f7;display:flex;align-items:center;justify-content:center;font-size:22px;color:#9aa3b5}
+  kbd{font-family:ui-monospace,monospace;font-size:11px;border:1px solid #e3e3e6;border-bottom-width:2px;border-radius:4px;padding:0 5px;background:#fafafa;color:#555}
+</style>
+
+<h3>首页（对应 ① ② ③ ⑤ ⑦ ⑧）</h3>
+<div class="pair">
+  <div>
+    <div class="lab">现在</div>
+    <div class="win">
+      <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+      <div class="tool">朝夕</div>
+      <div class="body">
+        <div class="side"><div class="on">首页</div><div>规划</div><div>记账</div><div>总结</div></div>
+        <div class="main">
+          <div class="in">记录想法或安排</div>
+          <div class="hd"><b>今天 · 10月4日 周日</b><span class="pg">今天 2/4</span></div>
+          <div class="sec">⌄ 未完成 5</div>
+          <div class="row ddl"><i class="ck"></i><span class="p0">P0</span><span class="tx">买香蕉</span><span class="grow"></span><span class="t c-ddl">DDL 10月5日</span></div>
+          <div class="row day"><i class="ck"></i><span class="p1">P1</span><span class="tx">交周报</span><span class="grow"></span><span class="t c-od">拖了 2 天</span></div>
+          <div class="row span"><i class="pie"></i><span class="tx">学习</span><span class="grow"></span><span class="t c-span">第 3/7 天</span><span class="t c-g">做一款游戏</span></div>
+          <div class="sec">⌄ 已完成 2</div>
+          <div class="row day done"><i class="ck"></i><span class="tx">回复邮件</span><span class="grow"></span><span class="t c-tag">#工作</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="lab">建议</div>
+    <div class="win">
+      <div class="bar" style="justify-content:flex-start"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:72px;font-weight:600;color:#333">今天 · 10月4日 周日</span><span style="color:#8a8a8e;margin-left:8px">2/4</span></div>
+      <div class="body">
+        <div class="side"><div class="on">首页</div><div>规划</div><div>记账</div><div>总结</div></div>
+        <div class="main"><div class="narrow" style="display:flex;flex-direction:column;gap:7px">
+          <div class="in">记录想法或安排</div>
+          <div class="sec2">未完成 <span style="color:#aaa;font-weight:400">5</span></div>
+          <div class="row ddl"><i class="ck"></i><span class="p0">P0</span><span class="tx">买香蕉</span><span class="t q-warn">DDL 10月5日</span></div>
+          <div class="row day hover"><i class="ck"></i><span class="p1">P1</span><span class="tx">交周报</span><span class="t q-red">拖 2 天</span></div>
+          <div class="row span"><i class="pie"></i><span class="tx">学习</span><span class="t q">3/7 天 · 做一款游戏</span></div>
+          <div class="sec2">已完成 <span style="color:#aaa;font-weight:400">2</span></div>
+          <div class="row day done"><i class="ck"></i><span class="tx">回复邮件</span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cap">
+  <span class="n">1</span>去掉只写着"朝夕"的工具栏，日期和进度放进标题栏，内容整体上移。
+  <span class="n">2</span>内容限制宽度，标签紧跟文字，不再被甩到最右边。
+  <span class="n">3</span>标签降噪：所属模块组、阶段进度合成一个浅灰标签，DDL 用淡橙底，拖延只用红字。
+  <span class="n">5</span>鼠标移上去整行出现淡底（"交周报"那行）。
+  <span class="n">7</span>已完成的不再显示标签。
+  <span class="n">8</span>分组标题加大一号，上方多留空。
+</div>
+
+<h3>记账（对应 ② ④ 和分类图标）</h3>
+<div class="pair">
+  <div>
+    <div class="lab">现在</div>
+    <div class="win">
+      <div class="body" style="min-height:220px">
+        <div class="main">
+          <div style="display:flex;align-items:center"><b style="font-size:15px">2026年10月</b><span class="grow"></span><span class="seg seg-now"><span class="on">流水</span><span>统计</span></span></div>
+          <div class="sec">今天 · 10月4日 周日<span style="float:right">支出 ¥41</span></div>
+          <div class="lrow"><span class="t c-g">餐饮</span><span>午饭</span><span class="grow"></span><span>-¥35</span></div>
+          <div class="lrow"><span class="t c-g">交通</span><span>地铁</span><span class="grow"></span><span>-¥6</span></div>
+          <div class="lrow"><span class="t" style="background:#e6f4ec;color:#1b8a52">工资</span><span>工资</span><span class="grow"></span><span style="color:#1fa463">+¥12,000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="lab">建议</div>
+    <div class="win">
+      <div class="body" style="min-height:220px">
+        <div class="main"><div class="narrow" style="max-width:320px;display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;align-items:center"><b style="font-size:15px">2026年10月</b><span class="grow"></span><span class="seg seg-new"><span class="on">流水</span><span>统计</span></span></div>
+          <div class="sec2" style="font-size:11px">今天 · 10月4日<span style="float:right;color:#999;font-weight:400">支出 ¥41</span></div>
+          <div class="lrow"><span class="ic" style="background:#fdf0e3">🍜</span><span>午饭</span><span style="color:#aaa;font-size:11px">餐饮</span><span class="grow"></span><span>-¥35</span></div>
+          <div class="lrow"><span class="ic" style="background:#e8f0fe">🚇</span><span>地铁</span><span style="color:#aaa;font-size:11px">交通</span><span class="grow"></span><span>-¥6</span></div>
+          <div class="lrow"><span class="ic" style="background:#e6f4ec">💰</span><span>工资</span><span style="color:#aaa;font-size:11px">工资</span><span class="grow"></span><span style="color:#1fa463">+¥12,000</span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cap">
+  <span class="n">4</span>"流水 / 统计"改成浅灰分段控件，不再是整页最亮的一块。
+  <span class="n">2</span>同样限制宽度，金额离备注更近。
+  分类前加小图标（正式版用 Mac 系统图标，不是 emoji），分类名放在备注后面用浅灰字。
+</div>
+
+<h3>空状态（对应 ⑥）</h3>
+<div class="pair">
+  <div>
+    <div class="lab">现在</div>
+    <div class="win"><div class="body" style="min-height:180px"><div class="main">
+      <div class="in">记录想法或安排</div>
+      <div class="hd"><b>今天 · 10月4日 周日</b></div>
+      <div style="color:#8a8a8e;margin-top:10px">今日无待办</div>
+    </div></div></div>
+  </div>
+  <div>
+    <div class="lab">建议</div>
+    <div class="win"><div class="body" style="min-height:180px"><div class="main">
+      <div class="in">记录想法或安排</div>
+      <div class="empty">
+        <div class="big">✓</div>
+        <div style="color:#555">今天还空着</div>
+        <div style="font-size:11px">随时按 <kbd>⌥</kbd> <kbd>Space</kbd> 记一条</div>
+      </div>
+    </div></div></div>
+  </div>
+</div>
+<div class="cap"><span class="n">6</span>居中的图标 + 一句提示，顺便教会快捷键。</div>

@@ -1,0 +1,7 @@
+.build/
+build/
+*.xcodeproj
+.swiftpm/
+Generated/
+Cre.xcodeproj/
+dist/

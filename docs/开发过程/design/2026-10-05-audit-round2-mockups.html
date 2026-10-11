@@ -1,0 +1,203 @@
+<meta charset="utf-8">
+<title>第二轮视觉样稿</title>
+<style>
+  :root{--bg:#f5f5f7;--win:#fff;--side:#f3f3f5;--line:#ececee;--fg:#1d1d1f;--sub:#8a8a8e;--faint:#b5b5ba;
+        --day:#2f6fed;--ddl:#f08a24;--rep:#1fa463;--span:#8e5bd8;--red:#d43c3c}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;padding:28px 24px 60px}
+  h2{margin:0 0 6px;font-size:20px}
+  h3{margin:38px 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .n{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:20px;padding:0 6px;border-radius:6px;background:#1d1d1f;color:#fff;font-size:11.5px;font-weight:600}
+  p.note{margin:0 0 12px;color:var(--sub);font-size:13px;max-width:72ch;line-height:1.6}
+  .pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px}
+  .lab{font-size:12px;color:var(--sub);margin-bottom:6px}
+  .lab.new{color:#1b8a52;font-weight:600}
+  .win{background:var(--win);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+  .flex{display:flex;align-items:center;gap:8px}
+  .grow{flex:1}
+  .muted{color:var(--sub)} .faint{color:var(--faint)} .small{font-size:12px}
+  /* toolbar */
+  .tb{display:flex;align-items:center;gap:10px;font-size:13px}
+  .tb .date{font-weight:600;font-size:14px}
+  .ib{display:inline-flex;align-items:center;justify-content:center;width:26px;height:24px;border-radius:6px;color:#555}
+  .ib:hover,.ib.hov{background:#f0f0f2}
+  .ib svg{width:15px;height:15px}
+  .chev{font-size:9px;color:#888;margin-left:1px}
+  .tip{position:relative}
+  .tip .bubble{position:absolute;top:28px;left:50%;transform:translateX(-50%);background:#2b2b2e;color:#fff;font-size:11px;padding:3px 7px;border-radius:5px;white-space:nowrap}
+  .sep{width:1px;height:16px;background:var(--line)}
+  /* rows */
+  .row{display:flex;align-items:center;gap:8px;padding:7px 6px;border-bottom:1px solid var(--line);font-size:13px;border-radius:0}
+  .row.hov{background:#f4f4f6;border-radius:6px}
+  .bar{width:4px;height:15px;border-radius:2px;flex:none}
+  .ck{width:13px;height:13px;border-radius:50%;border:2px solid;flex:none}
+  .tag{margin-left:auto;font-size:11px;padding:1px 7px;border-radius:999px}
+  .fold-now{color:var(--ddl);font-size:14px;padding:8px 6px}
+  .fold-new{color:var(--sub);font-size:12px;padding:8px 6px}
+  .fold-new b{color:var(--ddl);font-weight:600}
+  /* summary three-pane */
+  .pane{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--win);min-height:190px}
+  .pane .s{width:84px;background:var(--side);padding:10px 8px;font-size:12px;flex:none}
+  .pane .s div{padding:4px 6px;border-radius:5px}.pane .s .on{background:#e4e4e8}
+  .pane .l{width:160px;padding:10px 8px;font-size:12px;flex:none;border-right:1px solid var(--line)}
+  .pane .l .h{color:var(--sub);font-size:11px;margin:4px 6px}
+  .pane .l div.it{padding:4px 6px;border-radius:5px;display:flex}
+  .pane .l div.it span{margin-left:auto;color:var(--sub)}
+  .pane .l .sel{background:#dfe7fb}
+  .pane .d{flex:1;padding:12px 14px;font-size:12px;min-width:0}
+  .btn{display:inline-block;background:#f0f0f2;border-radius:6px;padding:3px 9px;font-size:12px}
+  .prog{height:6px;border-radius:3px;background:#ececee;overflow:hidden;margin:8px 0 12px}
+  .prog i{display:block;height:100%;border-radius:3px}
+  .gbar{display:grid;grid-template-columns:52px 1fr 30px;align-items:center;gap:8px;margin:6px 0}
+  .gbar .t{height:5px;border-radius:3px;background:#ececee;overflow:hidden}.gbar .t i{display:block;height:100%}
+  /* ledger totals */
+  .tot{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap}
+  .fig .k{font-size:11px;color:var(--sub)} .fig .v{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+  .fig.big .v{font-size:24px}
+  .fig.right{margin-left:auto;text-align:right}
+  .chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 5px;border-radius:999px;font-size:11.5px;min-width:52px}
+  /* sidebar icons */
+  .sb{display:flex;flex-direction:column;gap:4px;width:150px;background:var(--side);border-radius:10px;padding:10px}
+  .sb div{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;font-size:13px}
+  .sb .on{background:#e4e4e8}
+  .sb svg{width:16px;height:16px;flex:none}
+  .cap{font-size:12.5px;color:#555;margin-top:8px;line-height:1.6;max-width:80ch}
+</style>
+
+<h2>第二轮视觉样稿（R1–R10）</h2>
+<p class="note">每组左边「现在」、右边「建议」。灰色带底的那一行表示鼠标停在上面。内容是示例数据。</p>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="filter" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5 6h6M6 8h4M7 10h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  <symbol id="hash" viewBox="0 0 16 16"><path d="M6 2 4.8 14M11.2 2 10 14M2.5 5.5h11.5M2 10.5h11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="sort" viewBox="0 0 16 16"><path d="M5 2.5v11M2.5 5 5 2.5 7.5 5M11 13.5v-11M8.5 11l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+  <symbol id="cal" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M2 6.5h12M5 1.8v2.4M11 1.8v2.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  <symbol id="left" viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="right" viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="house" viewBox="0 0 16 16"><path d="M2.5 7.5 8 3l5.5 4.5V13a1 1 0 0 1-1 1H10V10H6v4H3.5a1 1 0 0 1-1-1z" fill="currentColor"/></symbol>
+  <symbol id="house-o" viewBox="0 0 16 16"><path d="M2.5 7.5 8 3l5.5 4.5V13a1 1 0 0 1-1 1H10V10H6v4H3.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+  <symbol id="list" viewBox="0 0 16 16"><rect x="2" y="2.5" width="12" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 6h7M4.5 8.5h7M4.5 11h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></symbol>
+  <symbol id="card" viewBox="0 0 16 16"><rect x="1.8" y="3.5" width="12.4" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M1.8 6.5h12.4M4 10h2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  <symbol id="chart" viewBox="0 0 16 16"><rect x="2" y="7" width="3" height="6.5" rx=".8" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="6.5" y="3" width="3" height="10.5" rx=".8" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="11" y="5" width="3" height="8.5" rx=".8" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+</svg>
+
+<!-- R1 -->
+<h3><span class="n">R1</span>首页右上角控件统一</h3>
+<p class="note">现在有的是「图标+箭头」、有的是「文字+箭头」、有的是光图标。建议全部用同样大小的图标按钮，鼠标停上去出现说明；日期三个按钮用一条细线和前面隔开。</p>
+<div class="pair">
+  <div><div class="lab">现在</div><div class="win"><div class="tb">
+    <span class="date">今天 · 10月5日 周一</span><span class="muted small">2/5</span><span class="grow"></span>
+    <span class="flex" style="gap:2px"><svg width="15" height="15"><use href="#filter"/></svg><span class="chev">⌄</span></span>
+    <span class="flex" style="gap:2px"><svg width="15" height="15"><use href="#hash"/></svg><span class="chev">⌄</span></span>
+    <span class="flex" style="gap:3px"><svg width="15" height="15"><use href="#sort"/></svg>按优先级<span class="chev">⌄</span></span>
+    <svg width="15" height="15"><use href="#left"/></svg><svg width="15" height="15"><use href="#cal"/></svg><svg width="15" height="15"><use href="#right"/></svg>
+  </div></div></div>
+  <div><div class="lab new">建议</div><div class="win" style="padding-bottom:34px"><div class="tb">
+    <span class="date">今天 · 10月5日 周一</span><span class="muted small">2/5</span><span class="grow"></span>
+    <span class="ib"><svg><use href="#filter"/></svg></span>
+    <span class="ib"><svg><use href="#hash"/></svg></span>
+    <span class="ib hov tip"><svg><use href="#sort"/></svg><span class="bubble">排序：按优先级</span></span>
+    <span class="sep"></span>
+    <span class="ib"><svg><use href="#left"/></svg></span><span class="ib"><svg><use href="#cal"/></svg></span><span class="ib"><svg><use href="#right"/></svg></span>
+  </div></div></div>
+</div>
+<p class="cap">代价：排序方式不再直接写在界面上，要停一下或点开才看到。如果你常换排序，可以保留文字、只去掉其他按钮的小箭头。</p>
+
+<!-- R2 -->
+<h3><span class="n">R2</span>「DDL 待办」折叠行降调</h3>
+<p class="note">它只是一个「还有几条远期 DDL」的入口，不该比待办本身还显眼。</p>
+<div class="pair">
+  <div><div class="lab">现在</div><div class="win">
+    <div class="row"><i class="bar" style="background:var(--span)"></i><i class="ck" style="border-color:var(--span);background:#efe7fb"></i>学习<span class="tag" style="background:#f0e9fb;color:#7341c2">第 3/7 天</span></div>
+    <div class="fold-now">› DDL 待办 (2)</div>
+  </div></div>
+  <div><div class="lab new">建议</div><div class="win">
+    <div class="row"><i class="bar" style="background:var(--span)"></i><i class="ck" style="border-color:var(--span);background:#efe7fb"></i>学习<span class="tag" style="background:#f0e9fb;color:#7341c2">第 3/7 天</span></div>
+    <div class="fold-new">› DDL 待办 <b>2</b></div>
+  </div></div>
+</div>
+<p class="cap">文字改小、改灰，只有数字保留橙色。</p>
+
+<!-- R3 + R8 -->
+<h3><span class="n">R3</span><span class="n">R8</span>规划卡片、记账流水也加悬停淡底</h3>
+<p class="note">和首页一样：鼠标停在哪行，哪行有淡底，点之前就知道会点到哪条。</p>
+<div class="pair">
+  <div><div class="lab new">规划 · 卡片里</div><div class="win">
+    <div class="flex" style="font-weight:600;margin-bottom:6px">读书 <span class="small muted" style="font-weight:400;background:#f0f0f2;border-radius:5px;padding:1px 6px">清单 · 每天 1 小时</span></div>
+    <div class="row hov"><i class="bar" style="background:#ccc"></i><i class="ck" style="border-color:#bbb"></i>人类简史<span class="tag" style="background:#e6f4ec;color:#1b8a52">▶ 进行中</span></div>
+    <div class="row"><i class="bar" style="background:#ccc"></i><i class="ck" style="border-color:#bbb"></i>置身事内</div>
+  </div></div>
+  <div><div class="lab new">记账 · 流水</div><div class="win">
+    <div class="flex small" style="font-weight:600;margin-bottom:4px">今天 · 10月5日<span class="grow"></span><span class="muted" style="font-weight:400">支出 ¥41</span></div>
+    <div class="row"><span class="chip" style="background:#fdf0e3;color:#c46d14">餐饮</span>午饭<span class="grow"></span>-¥35</div>
+    <div class="row hov"><span class="chip" style="background:#e8f0fe;color:#2459c9">交通</span>地铁<span class="grow"></span>-¥6</div>
+  </div></div>
+</div>
+
+<!-- R4 R5 R6 R7 -->
+<h3><span class="n">R4</span><span class="n">R5</span><span class="n">R6</span><span class="n">R7</span>总结页</h3>
+<p class="note">R4 中间列表和侧栏同色、只用一条细线分隔；R5 按钮统一叫「重新生成」；R6 模块组进度条和完成进度一样用绿色；R7 一天的周期只写一个日期。</p>
+<div class="pair">
+  <div><div class="lab">现在</div>
+    <div class="pane">
+      <div class="s"><div>首页</div><div>规划</div><div>记账</div><div class="on">总结</div></div>
+      <div class="l" style="background:#e6e6ea;border-right:none">
+        <div class="h">本周总结</div><div class="it sel">10月5日–10月5日<span>67%</span></div>
+      </div>
+      <div class="d">
+        <div class="flex"><b style="font-size:14px">本周总结</b><span class="grow"></span><span class="btn">再生成</span></div>
+        <div class="small muted">10月5日 – 10月5日</div>
+        <div class="prog"><i style="width:67%;background:#4aa36c"></i></div>
+        <div class="small muted">按模块组</div>
+        <div class="gbar"><span>健身</span><span class="t"><i style="width:3%;background:#3b6fe0"></i></span><span>0/1</span></div>
+        <div class="gbar"><span>读书</span><span class="t"><i style="width:100%;background:#3b6fe0"></i></span><span>1/1</span></div>
+      </div>
+    </div>
+  </div>
+  <div><div class="lab new">建议</div>
+    <div class="pane">
+      <div class="s"><div>首页</div><div>规划</div><div>记账</div><div class="on">总结</div></div>
+      <div class="l" style="background:var(--side)">
+        <div class="h">本周总结</div><div class="it sel">10月5日<span>67%</span></div>
+      </div>
+      <div class="d">
+        <div class="flex"><b style="font-size:14px">本周总结</b><span class="grow"></span><span class="btn">重新生成</span></div>
+        <div class="small muted">10月5日</div>
+        <div class="prog"><i style="width:67%;background:#4aa36c"></i></div>
+        <div class="small muted">按模块组</div>
+        <div class="gbar"><span>健身</span><span class="t"><i style="width:3%;background:#4aa36c"></i></span><span>0/1</span></div>
+        <div class="gbar"><span>读书</span><span class="t"><i style="width:100%;background:#4aa36c"></i></span><span>1/1</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- R9 -->
+<h3><span class="n">R9</span>记账：余额更突出</h3>
+<p class="note">四个数一样大时，眼睛不知道先看哪个。余额是「我现在有多少钱」，放大并靠右；收入/支出/净收入是本月流水，保持小一号。</p>
+<div class="pair">
+  <div><div class="lab">现在</div><div class="win"><div class="tot">
+    <div class="fig"><div class="k">收入</div><div class="v" style="color:#1fa463">¥12,000</div></div>
+    <div class="fig"><div class="k">支出</div><div class="v">¥4,551.50</div></div>
+    <div class="fig"><div class="k">净收入</div><div class="v">¥7,448.50</div></div>
+    <div class="fig"><div class="k">余额</div><div class="v">¥18,236.20</div></div>
+  </div></div></div>
+  <div><div class="lab new">建议</div><div class="win"><div class="tot">
+    <div class="fig"><div class="k">收入</div><div class="v" style="color:#1fa463">¥12,000</div></div>
+    <div class="fig"><div class="k">支出</div><div class="v">¥4,551.50</div></div>
+    <div class="fig"><div class="k">净收入</div><div class="v">¥7,448.50</div></div>
+    <div class="fig big right"><div class="k">余额</div><div class="v">¥18,236.20</div></div>
+  </div></div></div>
+</div>
+
+<!-- R10 -->
+<h3><span class="n">R10</span>侧栏图标粗细统一</h3>
+<p class="note">「首页」是实心房子，其余三个是线框，放在一起像两套图标。改成同一种线框。</p>
+<div class="pair">
+  <div><div class="lab">现在</div>
+    <div class="sb"><div class="on"><svg><use href="#house"/></svg>首页</div><div><svg><use href="#list"/></svg>规划</div><div><svg><use href="#card"/></svg>记账</div><div><svg><use href="#chart"/></svg>总结</div></div>
+  </div>
+  <div><div class="lab new">建议</div>
+    <div class="sb"><div class="on"><svg><use href="#house-o"/></svg>首页</div><div><svg><use href="#list"/></svg>规划</div><div><svg><use href="#card"/></svg>记账</div><div><svg><use href="#chart"/></svg>总结</div></div>
+  </div>
+</div>

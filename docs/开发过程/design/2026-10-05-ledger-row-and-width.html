@@ -1,0 +1,135 @@
+<meta charset="utf-8">
+<title>记账行 & 居中样稿</title>
+<style>
+  :root{--bg:#f5f5f7;--win:#fff;--side:#f3f3f5;--line:#ececee;--fg:#1d1d1f;--sub:#8a8a8e;--faint:#b5b5ba}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;padding:28px 24px 60px}
+  h2{margin:0 0 6px;font-size:20px}
+  h3{margin:34px 0 4px;font-size:16px}
+  p.note{margin:0 0 14px;color:var(--sub);font-size:13px;max-width:70ch;line-height:1.6}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
+  .card{background:var(--win);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+  .card h4{margin:0 0 2px;font-size:14px}
+  .card .why{color:var(--sub);font-size:12px;margin:0 0 12px;line-height:1.5}
+  .sec{font-size:12px;font-weight:600;margin:4px 0 2px;display:flex}
+  .sec span{margin-left:auto;color:var(--sub);font-weight:400}
+  .row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);min-height:24px}
+  .row .amt{margin-left:auto;font-variant-numeric:tabular-nums}
+  .in{color:#1fa463}
+  .ic{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .ic svg{width:12px;height:12px}
+  .gray{color:var(--sub)} .small{font-size:12px} .faint{color:var(--faint)}
+  .chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 4px;border-radius:999px;font-size:12px;flex:none}
+  .chip svg{width:11px;height:11px}
+  .stack{display:flex;flex-direction:column;line-height:1.25}
+  .tag-rec{display:inline-block;font-size:11px;background:#e8f0fe;color:#2459c9;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+  /* wide-window mockups */
+  .wide{background:var(--win);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:8px}
+  .wide .bar{height:26px;background:#fafafa;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;padding-left:10px}
+  .wide .bar i{width:9px;height:9px;border-radius:50%;background:#ddd;display:block}
+  .wide .body{display:flex;min-height:270px}
+  .wide .side{width:110px;background:var(--side);padding:12px 8px;font-size:12px;flex:none}
+  .wide .side div{padding:5px 8px;border-radius:6px}
+  .wide .side .on{background:#e4e4e8}
+  .wide .main{flex:1;padding:14px 18px;min-width:0}
+  .col{max-width:100%}
+  .centered .col{max-width:440px;margin:0 auto}
+  .inp{background:#f2f2f4;border-radius:8px;padding:7px 10px;color:var(--faint);font-size:12px}
+  .hd{display:flex;align-items:baseline;gap:8px;margin:12px 0 6px;font-weight:600;font-size:13px}
+  .hd span{font-weight:400;color:var(--sub);font-size:11px}
+  .tr{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .tr .b{width:3px;height:14px;border-radius:2px}
+  .tr .ck{width:11px;height:11px;border-radius:50%;border:1.6px solid}
+  .tr .t{margin-left:auto;font-size:10.5px;padding:1px 6px;border-radius:999px}
+  .scroll{overflow-x:auto}
+  .scroll .wide{min-width:760px}
+  .lab{font-size:12px;color:var(--sub);margin-top:16px}
+</style>
+
+<h2>记账行布局 & 内容居中</h2>
+<p class="note">上半部分：图标、分类、备注怎么排，才不会让人以为图标是在说备注。下半部分：窗口拉宽时，「铺满」和「居中」的对比。</p>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="fork" viewBox="0 0 16 16"><path fill="currentColor" d="M4 1h1v5h1V1h1v5h1V1h1v6a2 2 0 0 1-2 2v6H6V9a2 2 0 0 1-2-2zM11 1c1.7 0 2.5 2 2.5 4.5S12.5 9 12 9v6h-1.5V1z"/></symbol>
+  <symbol id="tram" viewBox="0 0 16 16"><path fill="currentColor" d="M4 2h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2l1.5 2h-1.8L10.2 13H5.8l-1.5 2H2.5L4 13a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v4h8V4zm1 6.2a1 1 0 1 0 0 .1zm6 0a1 1 0 1 0 0 .1z"/></symbol>
+  <symbol id="bag" viewBox="0 0 16 16"><path fill="currentColor" d="M5 5V4a3 3 0 0 1 6 0v1h2.5l.8 10H1.7l.8-10zm1.5 0h3V4a1.5 1.5 0 0 0-3 0z"/></symbol>
+  <symbol id="cash" viewBox="0 0 16 16"><path fill="currentColor" d="M1 4h14v8H1zm7 1.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z"/></symbol>
+</svg>
+
+<h3>记账行：三种排法</h3>
+<p class="note">同一组数据。关键是让图标和分类名挨在一起，备注退到第二位。</p>
+<div class="grid">
+  <div class="card">
+    <h4>现在</h4>
+    <p class="why">图标 → 备注 → 分类。图标和分类中间隔着备注，第一眼像是「刀叉 = 午饭」。</p>
+    <div class="sec">今天 · 10月5日<span>支出 ¥41</span></div>
+    <div class="row"><span class="ic" style="background:#fdf0e3;color:#e8892a"><svg><use href="#fork"/></svg></span>午饭<span class="small faint">餐饮</span><span class="amt">-¥35</span></div>
+    <div class="row"><span class="ic" style="background:#e8f0fe;color:#2f6fed"><svg><use href="#tram"/></svg></span>地铁<span class="small faint">交通</span><span class="amt">-¥6</span></div>
+    <div class="row"><span class="ic" style="background:#f0e9fb;color:#8e5bd8"><svg><use href="#bag"/></svg></span>运动鞋<span class="small faint">购物</span><span class="amt">-¥199</span></div>
+    <div class="row"><span class="ic" style="background:#e6f4ec;color:#1fa463"><svg><use href="#cash"/></svg></span>工资<span class="small faint">工资</span><span class="amt in">+¥12,000</span></div>
+  </div>
+
+  <div class="card">
+    <h4>A · 胶囊：图标装进分类标签里 <span class="tag-rec">推荐</span></h4>
+    <p class="why">图标和分类名合成一个彩色小胶囊，备注是正文。一眼就知道图标属于分类；分类一列对齐，扫一眼就能看出钱花在哪类。</p>
+    <div class="sec">今天 · 10月5日<span>支出 ¥41</span></div>
+    <div class="row"><span class="chip" style="background:#fdf0e3;color:#c46d14"><svg><use href="#fork"/></svg>餐饮</span>午饭<span class="amt">-¥35</span></div>
+    <div class="row"><span class="chip" style="background:#e8f0fe;color:#2459c9"><svg><use href="#tram"/></svg>交通</span>地铁<span class="amt">-¥6</span></div>
+    <div class="row"><span class="chip" style="background:#f0e9fb;color:#7341c2"><svg><use href="#bag"/></svg>购物</span>运动鞋<span class="amt">-¥199</span></div>
+    <div class="row"><span class="chip" style="background:#e6f4ec;color:#1b8a52"><svg><use href="#cash"/></svg>工资</span>工资<span class="amt in">+¥12,000</span></div>
+  </div>
+
+  <div class="card">
+    <h4>B · 两行：分类在上，备注在下</h4>
+    <p class="why">像银行 App：图标右边先写分类，下面一行灰字写备注。关系清楚，但每条变高，一屏看到的条数少约三分之一。</p>
+    <div class="sec">今天 · 10月5日<span>支出 ¥41</span></div>
+    <div class="row"><span class="ic" style="background:#fdf0e3;color:#e8892a"><svg><use href="#fork"/></svg></span><span class="stack">餐饮<span class="small gray">午饭</span></span><span class="amt">-¥35</span></div>
+    <div class="row"><span class="ic" style="background:#e8f0fe;color:#2f6fed"><svg><use href="#tram"/></svg></span><span class="stack">交通<span class="small gray">地铁</span></span><span class="amt">-¥6</span></div>
+    <div class="row"><span class="ic" style="background:#f0e9fb;color:#8e5bd8"><svg><use href="#bag"/></svg></span><span class="stack">购物<span class="small gray">运动鞋</span></span><span class="amt">-¥199</span></div>
+    <div class="row"><span class="ic" style="background:#e6f4ec;color:#1fa463"><svg><use href="#cash"/></svg></span><span class="stack">工资<span class="small gray">工资</span></span><span class="amt in">+¥12,000</span></div>
+  </div>
+
+  <div class="card">
+    <h4>C · 一行：图标 + 分类，备注灰字在后</h4>
+    <p class="why">和现在一样是一行，只是把分类名提到图标紧后面，备注变成灰字。比 A 朴素，但备注（最具体的信息）反而不显眼。</p>
+    <div class="sec">今天 · 10月5日<span>支出 ¥41</span></div>
+    <div class="row"><span class="ic" style="background:#fdf0e3;color:#e8892a"><svg><use href="#fork"/></svg></span>餐饮<span class="small gray">午饭</span><span class="amt">-¥35</span></div>
+    <div class="row"><span class="ic" style="background:#e8f0fe;color:#2f6fed"><svg><use href="#tram"/></svg></span>交通<span class="small gray">地铁</span><span class="amt">-¥6</span></div>
+    <div class="row"><span class="ic" style="background:#f0e9fb;color:#8e5bd8"><svg><use href="#bag"/></svg></span>购物<span class="small gray">运动鞋</span><span class="amt">-¥199</span></div>
+    <div class="row"><span class="ic" style="background:#e6f4ec;color:#1fa463"><svg><use href="#cash"/></svg></span>工资<span class="small gray">工资</span><span class="amt in">+¥12,000</span></div>
+  </div>
+</div>
+
+<h3>内容居中：窗口拉宽时</h3>
+<p class="note">同一个很宽的窗口。上面铺满：标签、金额飘到最右，和文字隔得很远。下面居中：内容一栏封顶宽度、放在正中，两边平均留白；窗口不宽时两者几乎一样。</p>
+
+<div class="lab">现在 · 铺满</div>
+<div class="scroll"><div class="wide">
+  <div class="bar"><i></i><i></i><i></i></div>
+  <div class="body">
+    <div class="side"><div class="on">首页</div><div>规划</div><div>记账</div><div>总结</div></div>
+    <div class="main"><div class="col">
+      <div class="inp">记录想法或安排</div>
+      <div class="hd">今天 · 10月5日 周一<span>2/5</span></div>
+      <div class="tr"><i class="b" style="background:#f08a24"></i><i class="ck" style="border-color:#f08a24"></i>买香蕉<span class="t" style="background:#fdf0e3;color:#c46d14">DDL 10月6日</span></div>
+      <div class="tr"><i class="b" style="background:#2f6fed"></i><i class="ck" style="border-color:#2f6fed"></i>交周报<span class="t" style="background:#fdeaea;color:#c43c3c">拖了 2 天</span></div>
+      <div class="tr"><i class="b" style="background:#1fa463"></i><i class="ck" style="border-color:#1fa463"></i>健身 <span style="color:#1fa463">▶ 练胸</span></div>
+      <div class="tr"><i class="b" style="background:#8e5bd8"></i><i class="ck" style="border-color:#8e5bd8;background:#efe7fb"></i>学习<span class="t" style="background:#f0e9fb;color:#7341c2">第 3/7 天</span></div>
+    </div></div>
+  </div>
+</div></div>
+
+<div class="lab">建议 · 居中</div>
+<div class="scroll"><div class="wide centered">
+  <div class="bar"><i></i><i></i><i></i></div>
+  <div class="body">
+    <div class="side"><div class="on">首页</div><div>规划</div><div>记账</div><div>总结</div></div>
+    <div class="main"><div class="col">
+      <div class="inp">记录想法或安排</div>
+      <div class="hd">今天 · 10月5日 周一<span>2/5</span></div>
+      <div class="tr"><i class="b" style="background:#f08a24"></i><i class="ck" style="border-color:#f08a24"></i>买香蕉<span class="t" style="background:#fdf0e3;color:#c46d14">DDL 10月6日</span></div>
+      <div class="tr"><i class="b" style="background:#2f6fed"></i><i class="ck" style="border-color:#2f6fed"></i>交周报<span class="t" style="background:#fdeaea;color:#c43c3c">拖了 2 天</span></div>
+      <div class="tr"><i class="b" style="background:#1fa463"></i><i class="ck" style="border-color:#1fa463"></i>健身 <span style="color:#1fa463">▶ 练胸</span></div>
+      <div class="tr"><i class="b" style="background:#8e5bd8"></i><i class="ck" style="border-color:#8e5bd8;background:#efe7fb"></i>学习<span class="t" style="background:#f0e9fb;color:#7341c2">第 3/7 天</span></div>
+    </div></div>
+  </div>
+</div></div>

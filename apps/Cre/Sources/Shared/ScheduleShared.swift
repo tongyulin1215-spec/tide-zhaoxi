@@ -1,0 +1,33 @@
+import CreCore
+import SwiftUI
+
+/// What the schedule editor opens on: an existing occurrence, or a new slot.
+struct EditorTarget: Identifiable {
+    var occurrence: ScheduleOccurrence?
+    var day: DayKey
+    var start: Int
+    var end: Int
+    var title: String = ""
+    var id: String { occurrence?.id ?? "new-\(day)-\(start)" }
+}
+
+/// A drag on a repeating item, waiting for 只改这一次 / 改全部.
+struct PendingChange {
+    let id: UUID
+    let from: DayKey
+    let to: DayKey
+    let start: Int
+    let end: Int
+
+    func apply(_ scope: ScheduleScope, _ s: inout ScheduleData) {
+        s.move(id, from: from, to: to, start: start, end: end, scope: scope)
+    }
+}
+
+/// Blocks take the colour of the todo they came from; ones made here are blue.
+func scheduleColor(_ kind: EntryKind?) -> Color { Theme.color(for: kind ?? .day) }
+
+/// "1 小时 30 分" / "45 分".
+func durationText(_ mins: Int) -> String {
+    mins >= 60 ? "\(mins / 60) 小时" + (mins % 60 > 0 ? " \(mins % 60) 分" : "") : "\(mins) 分"
+}
